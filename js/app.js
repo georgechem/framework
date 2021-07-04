@@ -6,8 +6,6 @@ const obj = {
         'name': 'test'
     }
 }
-//data.append('controller', 'pages');
-//data.append('method', 'index');
 data.append('request', JSON.stringify(obj));
 
 const initRequest = new Request('src/index.php',{
@@ -23,4 +21,4 @@ const initRequest = new Request('src/index.php',{
      .then(response => response.json())
      .then((res)=>{
          console.log(res);
-     })
+     });

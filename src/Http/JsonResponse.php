@@ -18,5 +18,4 @@ class JsonResponse
         return json_encode($this->data);
     }
 
-
 }

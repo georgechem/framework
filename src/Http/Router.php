@@ -15,36 +15,43 @@ class Router
 
     public function __construct ($request)
     {
+        $this->selectData($request);
 
         $this->selectController($request);
 
         $this->selectMethod($request);
 
-        $this->selectData($request);
-        //$method = $request['method'];
-
         return $this;
-
-        //$this->controller->index();
-        //print_r($this->controller->$method);
 
     }
     public function getController()
     {
-        return eval('return $this->controller->'.$this->method.'();');
+        $controller = eval('return $this->controller->'.$this->method.'('.');');
+
+        return $controller;
 
     }
 
     private function selectController($request)
     {
         $controller = '\App\Controller\\' . $request['controller'];
-        $this->controller = new $controller();
+
+        if(class_exists($controller)){
+            $this->controller = new $controller();
+        }else{
+            $this->controller = new \App\Controller\Pages();
+        }
+
+        $this->controller->insertData($this->data);
 
     }
 
     private function selectMethod($request)
     {
         $this->method = $request['method'];
+        if(!method_exists($this->controller,$this->method)){
+            $this->method = 'index';
+        }
 
     }
 
