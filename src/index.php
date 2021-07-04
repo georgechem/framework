@@ -11,11 +11,17 @@ require __DIR__ .'./../vendor/autoload.php';
 
 $request = Request::create();
 
-$controller = $request->getController();
+if($request !== null){
+    $controller = $request->getController();
 
-$response = $controller->getResponse();
-
-//file_put_contents('req.txt', print_r($request,true));
+    $response = $controller->getResponse();
+}else {
+    $response = json_encode([
+        'status' => 'failed',
+        'code' => '500',
+        'msg'=>'token invalid or missing'
+    ]);
+}
 
 
 echo $response;

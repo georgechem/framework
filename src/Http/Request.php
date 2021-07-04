@@ -12,10 +12,22 @@ class Request
     {
         $request = json_decode($_REQUEST['request'], true);
 
-        self::$router = new Router($request);
+        if(self::isTokenPresent()){
 
-        return self::$router;
+            self::$router = new Router($request);
 
+            return self::$router;
+
+        }else{
+
+            return null;
+        }
+
+    }
+
+    private static function isTokenPresent():bool
+    {
+        return true;
     }
 
 }
