@@ -70,4 +70,44 @@ class Router
         $this->data = $request['data'];
     }
 
+    /**
+     * @param null $controller
+     */
+    public function setController($controller): void
+    {
+        $this->controller = $controller;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param null $method
+     */
+    public function setMethod($method): void
+    {
+        $this->method = $method;
+    }
+
+    /**
+     * @return null
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param null $data
+     */
+    public function setData($data): void
+    {
+        $this->data = $data;
+    }
+
 }
