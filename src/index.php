@@ -14,10 +14,11 @@ $request = Request::create();
 $router = $request->requestToRoute();
 
 
-if($request !== null){
+if($router !== null){
     $controller = $router->getController();
 
     $response = $controller->getResponse();
+
 }else {
     $response = json_encode([
         'status' => 'failed',

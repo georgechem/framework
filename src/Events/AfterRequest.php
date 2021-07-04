@@ -8,6 +8,7 @@ class AfterRequest
 {
     public function __construct($request)
     {
-        //$request = null;
+        //$request->setRouter(null);
+
     }
 }
