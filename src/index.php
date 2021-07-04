@@ -7,19 +7,22 @@ require __DIR__ .'./../vendor/autoload.php';
 /**
  * Request Object used to test through PHP directly without JavaScript
  */
-//$_REQUEST['request'] = '{"controller":"pages","method":"index","data":{"name":"test"}}';
+$_REQUEST['request'] = '{"controller":"pages","method":"index","data":{"name":"test"}}';
 
 $request = Request::create();
 
+$router = $request->requestToRoute();
+
+
 if($request !== null){
-    $controller = $request->getController();
+    $controller = $router->getController();
 
     $response = $controller->getResponse();
 }else {
     $response = json_encode([
         'status' => 'failed',
         'code' => '500',
-        'msg'=>'token invalid or missing'
+        'msg'=>'ERROR'
     ]);
 }
 

@@ -8,24 +8,40 @@ use App\Events\AfterRequest;
 
 class Request
 {
-    private static $request = null;
+    private static $instance = null;
 
-    private static $router = null;
+    private  $request = null;
+
+    private  $router = null;
 
     public static function create()
     {
+        if(is_null(self::$instance)){
+            self::$instance = new self();
+
+        }
+
+        return self::$instance;
+
+    }
+
+    private function __construct()
+    {
         if(isset($_REQUEST['request'])){
-            self::$request = json_decode($_REQUEST['request'], true);
+            $this->request = json_decode($_REQUEST['request'], true);
         }else{
             return null;
         }
+    }
 
-        self::$router = new Router(self::$request);
+    public function requestToRoute()
+    {
 
-        $afterRequestEvent = new AfterRequest(self::$request);
+        $this->router = new Router($this->request);
 
-        return self::$router;
+        $afterRequestEvent = new AfterRequest($this);
 
+        return $this->router;
     }
 
 
