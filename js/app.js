@@ -1,10 +1,14 @@
 const data = new FormData();
 const obj = {
-    'test': 'data'
+    'controller': 'pages',
+    'method': 'index',
+    'data': {
+        'name': 'test'
+    }
 }
-data.append('controller', 'pages');
-data.append('method', 'index');
-data.append('object', JSON.stringify(obj));
+//data.append('controller', 'pages');
+//data.append('method', 'index');
+data.append('request', JSON.stringify(obj));
 
 const initRequest = new Request('src/index.php',{
     method: 'POST',
