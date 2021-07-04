@@ -16,6 +16,7 @@ class Router
     public function __construct ($request = null)
     {
         if($request !== null){
+
             $this->selectData($request);
 
             $this->selectController($request);
