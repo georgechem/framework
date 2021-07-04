@@ -1,0 +1,16 @@
+{
+    "name": "etutor/framework",
+    "description": "Framework",
+    "type": "project",
+    "require": {
+        "php": "^8.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "root",
+            "email": "grzegorzchrymecki@php-developer.ie"
+        }
+    ],
+    "minimum-stability": "dev"
+}
