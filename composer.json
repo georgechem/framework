@@ -12,5 +12,15 @@
             "email": "grzegorzchrymecki@php-developer.ie"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
     "minimum-stability": "dev"
 }
