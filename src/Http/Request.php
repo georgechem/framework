@@ -8,24 +8,23 @@ use App\Events\AfterRequest;
 
 class Request
 {
+    private static $request = null;
+
     private static $router = null;
 
     public static function create()
     {
         if(isset($_REQUEST['request'])){
-            $request = json_decode($_REQUEST['request'], true);
+            self::$request = json_decode($_REQUEST['request'], true);
         }else{
             return null;
         }
-        $afterRequestEvent = new AfterRequest($request);
 
-        self::$router = new Router($request);
+        self::$router = new Router(self::$request);
 
-
+        $afterRequestEvent = new AfterRequest(self::$request);
 
         return self::$router;
-
-
 
     }
 

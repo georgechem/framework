@@ -4,6 +4,8 @@
 namespace App\Http;
 
 
+use App\Events\BeforeController;
+
 class Router
 {
     private $controller = null;
@@ -47,6 +49,8 @@ class Router
         }else{
             $this->controller = new \App\Controller\Pages();
         }
+
+        $beforeControllerEvent = new BeforeController($this);
 
         $this->controller->insertData($this->data);
 

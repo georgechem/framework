@@ -3,10 +3,11 @@
 
 namespace App\Controller;
 
-
+use App\Events\AfterResponse;
+use App\Events\BeforeResponse;
 use App\Http\JsonResponse;
 
-class Pages
+class Pages implements ControllerInterface
 {
     private $response = null;
 
@@ -17,10 +18,14 @@ class Pages
         $this->data = $data;
     }
 
-    public function index()
+    public function index():self
     {
 
+        $beforeResponseEvent = new BeforeResponse($this);
+
         $this->response = new JsonResponse(['Pages'=>'index', 'data' => $this->data]);
+
+        $afterResponseEvent = new AfterResponse($this);
 
         return $this;
 
