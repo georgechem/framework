@@ -12,8 +12,6 @@ class Request
 
     private  $data = null;
 
-    private  $router = null;
-
     private $afterRequestEvent = null;
 
     public static function create()
@@ -35,42 +33,18 @@ class Request
 
     public function requestToRoute()
     {
-        //$this->router = new Router($this->request);
-        $this->router = new Router($this);
 
         $this->afterRequestEvent = new AfterRequest($this);
 
-        return $this->router;
+        return new Router($this);
 
     }
 
-    /**
-     * @return null
-     */
-    public function getRouter()
-    {
-        return $this->router;
-    }
-
-    /**
-     * @param null $router
-     */
-    public function setRouter($router): void
-    {
-        $this->router = $router;
-    }
-
-    /**
-     * @return mixed|null
-     */
     public function getData(): mixed
     {
         return $this->data;
     }
 
-    /**
-     * @param mixed|null $data
-     */
     public function setData(mixed $data): void
     {
         $this->data = $data;

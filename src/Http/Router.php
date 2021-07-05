@@ -12,8 +12,11 @@ class Router
 
     private $method = null;
 
+    private ?Request $request;
+
     public function __construct (Request $request = null)
     {
+        $this->request = $request;
 
         if($request !== null){
 
@@ -54,7 +57,7 @@ class Router
 
         $beforeControllerEvent = new BeforeController($this);
 
-        $this->controller->insertRequest($this);
+        $this->controller->insertRequest($this->request);
 
     }
 
@@ -96,22 +99,6 @@ class Router
     public function setMethod($method): void
     {
         $this->method = $method;
-    }
-
-    /**
-     * @return null
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param null $request
-     */
-    public function setRequest($request): void
-    {
-        $this->request = $request;
     }
 
 }

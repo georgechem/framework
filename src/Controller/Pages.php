@@ -20,7 +20,7 @@ class Pages implements ControllerInterface
 
     public function index():self
     {
-        print_r($this->request);
+        print_r($this);
 
         $beforeResponseEvent = new BeforeResponse($this);
 
