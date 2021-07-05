@@ -30,7 +30,6 @@ class Session
 
         }
         $this->sessionID = session_id();
-        print_r($this->sessionID);
     }
 
 }

@@ -12,7 +12,7 @@ class Router
 
     private $method = null;
 
-    private $data = null;
+    private $request = null;
 
 
     public function __construct ($request = null)
@@ -42,7 +42,8 @@ class Router
 
     private function selectController($request)
     {
-        $controller = '\App\Controller\\' . $request['controller'];
+        //$controller = '\App\Controller\\' . $request['controller'];
+        $controller = '\App\Controller\\' . $request->getRequest()['controller'];
 
         if(class_exists($controller)){
             $this->controller = new $controller();
@@ -52,13 +53,14 @@ class Router
 
         $beforeControllerEvent = new BeforeController($this);
 
-        $this->controller->insertData($this->data);
+        $this->controller->insertRequest($this);
 
     }
 
     private function selectMethod($request)
     {
-        $this->method = $request['method'];
+        //$this->method = $request['method'];
+        $this->method = $request->getRequest()['method'];
         if(!method_exists($this->controller,$this->method)){
             $this->method = 'index';
         }
@@ -67,7 +69,8 @@ class Router
 
     private function selectData($request)
     {
-        $this->data = $request['data'];
+        //$this->data = $request['data'];
+        $this->request = $request->getRequest();
     }
 
     /**
@@ -97,17 +100,17 @@ class Router
     /**
      * @return null
      */
-    public function getData()
+    public function getRequest()
     {
-        return $this->data;
+        return $this->request;
     }
 
     /**
-     * @param null $data
+     * @param null $request
      */
-    public function setData($data): void
+    public function setRequest($request): void
     {
-        $this->data = $data;
+        $this->request = $request;
     }
 
 }

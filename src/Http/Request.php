@@ -14,6 +14,8 @@ class Request
 
     private  $router = null;
 
+    private $afterRequestEvent = null;
+
     public static function create()
     {
         if(is_null(self::$instance)){
@@ -37,11 +39,13 @@ class Request
     public function requestToRoute()
     {
 
-        $this->router = new Router($this->request);
+        //$this->router = new Router($this->request);
+        $this->router = new Router($this);
 
-        $afterRequestEvent = new AfterRequest($this);
+        $this->afterRequestEvent = new AfterRequest($this);
 
         return $this->router;
+
     }
 
     /**

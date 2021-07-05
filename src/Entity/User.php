@@ -56,7 +56,9 @@ class User implements EntityInterface
             echo 'Object is not prepared for INSERT - Missing fields';
             exit;
         }
+
         $roles = json_encode($this->role);
+
         $stmt->bind_param('ssss', $this->username, $this->password, $roles, $this->sessionID);
 
         $stmt->execute();

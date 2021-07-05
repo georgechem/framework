@@ -11,11 +11,11 @@ class Pages implements ControllerInterface
 {
     private $response = null;
 
-    private $data = null;
+    private $request = null;
 
-    public function insertData($data = null)
+    public function insertRequest($data = null)
     {
-        $this->data = $data;
+        $this->request = $data;
     }
 
     public function index():self
@@ -23,7 +23,7 @@ class Pages implements ControllerInterface
 
         $beforeResponseEvent = new BeforeResponse($this);
 
-        $this->response = new JsonResponse(['Pages'=>'index', 'data' => $this->data]);
+        $this->response = new JsonResponse(['request' => $this->request->getRequest()]);
 
         $afterResponseEvent = new AfterResponse($this);
 

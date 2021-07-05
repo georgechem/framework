@@ -16,7 +16,13 @@ class AfterRequest
         $this->sessionInstance = new Session();
 
         //$request->setRouter(null);
+        return $this;
 
+    }
+
+    public function getSessionInstance()
+    {
+        return $this->sessionInstance;
     }
 
 
