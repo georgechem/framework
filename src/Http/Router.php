@@ -12,14 +12,10 @@ class Router
 
     private $method = null;
 
-    private $request = null;
-
-
     public function __construct (Request $request = null)
     {
-        $this->request = $request;
 
-        if($this->request !== null){
+        if($request !== null){
 
             $this->selectController($request);
 

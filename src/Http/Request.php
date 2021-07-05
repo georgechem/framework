@@ -20,11 +20,8 @@ class Request
     {
         if(is_null(self::$instance)){
             self::$instance = new self();
-
         }
-
         return self::$instance;
-
     }
 
     private function __construct()
@@ -38,7 +35,6 @@ class Request
 
     public function requestToRoute()
     {
-
         //$this->router = new Router($this->request);
         $this->router = new Router($this);
 
