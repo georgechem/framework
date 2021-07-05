@@ -32,6 +32,15 @@ class Pages implements ControllerInterface
 
     }
 
+    public function login():self
+    {
+        //file_put_contents('req.txt', print_r($this->request ,true));
+
+        $this->response = new JsonResponse(['login'=>'credentials']);
+
+        return $this;
+    }
+
     public function getResponse()
     {
         return $this->response->get();
