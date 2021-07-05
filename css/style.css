@@ -1,4 +1,4 @@
-#registerForm label,input {
+#registerForm, #loginForm label,input {
     display: block;
     margin: 0.5em auto;
     padding: 0.5em;

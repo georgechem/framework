@@ -25,29 +25,44 @@ const initRequest = new Request('src/index.php',{
          console.log(res);
      });*/
 // -----------------------------------------------------------------
-const registerForm = document.getElementById('registerForm');
-registerForm.addEventListener('submit', function(e){
+const handleUserFormSubmit = function(e){
     e.preventDefault();
-    const registerFormData = new FormData(registerForm);
-    const username = registerFormData.get('username');
-    const password = registerFormData.get('password');
-    registerForm.querySelector('#username').value = '';
-    registerForm.querySelector('#password').value = '';
 
-    const registerFormObject = {
+    const userFormData = new FormData(this);
+    const username = userFormData.get('username');
+    const password = userFormData.get('password');
+    let userStatus = null;
+    if(this.id === 'registerForm'){
+        this.querySelector('#username').value = '';
+        this.querySelector('#password').value = '';
+        userStatus = 'register';
+    }else{
+        this.querySelector('#usernameLogin').value = '';
+        this.querySelector('#passwordLogin').value = '';
+        userStatus = 'login';
+    }
+
+    const userFormObject = {
         'controller': 'pages',
-        'method': 'register',
+        'method': userStatus,
         'data':{
             'username': username,
             'password': password
         }
     }
     const formDataToSend = new FormData();
-    formDataToSend.append('request', JSON.stringify(registerFormObject));
+    formDataToSend.append('request', JSON.stringify(userFormObject));
 
     sendFormData(formDataToSend);
+}
 
-})
+const userRegisterForm = document.getElementById('registerForm');
+const userLoginForm = document.getElementById('loginForm');
+
+
+userRegisterForm.addEventListener('submit', handleUserFormSubmit);
+userLoginForm.addEventListener('submit', handleUserFormSubmit);
+
 function sendFormData(formDataToSend){
     const registerRequest = new Request('src/index.php',{
         method: 'POST',

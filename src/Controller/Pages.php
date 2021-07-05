@@ -33,6 +33,21 @@ class Pages implements ControllerInterface
         return $this;
 
     }
+    public function login()
+    {
+        $username = $this->request->getData()['data']['username'];
+        $password = $this->request->getData()['data']['password'];
+
+        $afterRequest = $this->request->getAfterRequest();
+        $sessionID = $afterRequest->getSessionInstance()->getSessionID();
+
+        $this->response = new JsonResponse([
+            'status' => '200',
+            'msg' => 'user logged successfully'
+        ]);
+
+        return $this;
+    }
 
     public function register():self
     {
