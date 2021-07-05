@@ -20,11 +20,11 @@ class Pages implements ControllerInterface
 
     public function index():self
     {
-        print_r($this);
+        //print_r($this->request);
 
         $beforeResponseEvent = new BeforeResponse($this);
 
-        $this->response = new JsonResponse(['data' => 'test']);
+        $this->response = new JsonResponse(['key'=>'value']);
 
         $afterResponseEvent = new AfterResponse($this);
 
