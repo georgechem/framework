@@ -30,6 +30,10 @@ class Request
             return null;
         }
     }
+    public function getAfterRequest()
+    {
+        return $this->afterRequestEvent;
+    }
 
     public function requestToRoute()
     {

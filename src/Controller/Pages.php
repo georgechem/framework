@@ -3,6 +3,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Entity;
+use App\Entity\User;
 use App\Events\AfterResponse;
 use App\Events\BeforeResponse;
 use App\Http\JsonResponse;
@@ -32,9 +34,24 @@ class Pages implements ControllerInterface
 
     }
 
-    public function login():self
+    public function register():self
     {
-        //file_put_contents('req.txt', print_r($this->request ,true));
+        $username = $this->request->getData()['data']['username'];
+        $password = $this->request->getData()['data']['password'];
+
+        $afterRequest = $this->request->getAfterRequest();
+        $sessionID = $afterRequest->getSessionInstance()->getSessionID();
+
+        $user = new User();
+        $user->setUsername($username);
+        $user->setPassword($password);
+        $user->setSessionID($sessionID);
+        $user->setRole(['ROLE_USER']);
+
+        $entity = new Entity($user);
+        $entity->create();
+
+        //file_put_contents('req.txt', print_r($sessionID ,true));
 
         $this->response = new JsonResponse(['login'=>'credentials']);
 

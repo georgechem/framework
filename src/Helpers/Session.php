@@ -22,6 +22,11 @@ class Session
         $this->sessionHandler();
     }
 
+    public function getSessionID()
+    {
+        return $this->sessionID;
+    }
+
     private function sessionHandler()
     {
         $this->sessionStatus = session_status();

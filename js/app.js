@@ -35,7 +35,7 @@ registerForm.addEventListener('submit', function(e){
 
     const registerFormObject = {
         'controller': 'pages',
-        'method': 'login',
+        'method': 'register',
         'data':{
             'username': username,
             'password': password
