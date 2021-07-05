@@ -53,7 +53,10 @@ class Pages implements ControllerInterface
 
         //file_put_contents('req.txt', print_r($sessionID ,true));
 
-        $this->response = new JsonResponse(['login'=>'credentials']);
+        $this->response = new JsonResponse([
+            'status' => '200',
+            'msg' => 'user registered successfully'
+        ]);
 
         return $this;
     }

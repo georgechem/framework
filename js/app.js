@@ -1,4 +1,5 @@
 // -- ex --
+/*
 const data = new FormData();
 const obj = {
     'controller': 'pages',
@@ -22,7 +23,7 @@ const initRequest = new Request('src/index.php',{
      .then(response => response.json())
      .then((res)=>{
          console.log(res);
-     });
+     });*/
 // -----------------------------------------------------------------
 const registerForm = document.getElementById('registerForm');
 registerForm.addEventListener('submit', function(e){
@@ -44,6 +45,10 @@ registerForm.addEventListener('submit', function(e){
     const formDataToSend = new FormData();
     formDataToSend.append('request', JSON.stringify(registerFormObject));
 
+    sendFormData(formDataToSend);
+
+})
+function sendFormData(formDataToSend){
     const registerRequest = new Request('src/index.php',{
         method: 'POST',
         mode: 'cors',
@@ -58,5 +63,4 @@ registerForm.addEventListener('submit', function(e){
         .then((res)=>{
             console.log(res);
         });
-
-})
+}
