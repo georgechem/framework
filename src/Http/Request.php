@@ -10,7 +10,7 @@ class Request
 {
     private static $instance = null;
 
-    private  $request = null;
+    private  $data = null;
 
     private  $router = null;
 
@@ -30,7 +30,7 @@ class Request
     private function __construct()
     {
         if(isset($_REQUEST['request'])){
-            $this->request = json_decode($_REQUEST['request'], true);
+            $this->data = json_decode($_REQUEST['request'], true);
         }else{
             return null;
         }
@@ -49,22 +49,6 @@ class Request
     }
 
     /**
-     * @return mixed|null
-     */
-    public function getRequest(): mixed
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param mixed|null $request
-     */
-    public function setRequest(mixed $request): void
-    {
-        $this->request = $request;
-    }
-
-    /**
      * @return null
      */
     public function getRouter()
@@ -78,6 +62,22 @@ class Request
     public function setRouter($router): void
     {
         $this->router = $router;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getData(): mixed
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed|null $data
+     */
+    public function setData(mixed $data): void
+    {
+        $this->data = $data;
     }
 
 

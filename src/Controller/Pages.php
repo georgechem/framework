@@ -13,17 +13,18 @@ class Pages implements ControllerInterface
 
     private $request = null;
 
-    public function insertRequest($data = null)
+    public function insertRequest($request = null)
     {
-        $this->request = $data;
+        $this->request = $request;
     }
 
     public function index():self
     {
+        //print_r($this->request);
 
         $beforeResponseEvent = new BeforeResponse($this);
 
-        $this->response = new JsonResponse(['request' => $this->request->getRequest()]);
+        $this->response = new JsonResponse(['data' => 'test']);
 
         $afterResponseEvent = new AfterResponse($this);
 
