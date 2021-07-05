@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\User;
 use App\Http\Request;
 
 require __DIR__ .'./../vendor/autoload.php';
@@ -8,6 +9,7 @@ require __DIR__ .'./../vendor/autoload.php';
  * Request Object used to test through PHP directly without JavaScript
  */
 $_REQUEST['request'] = '{"controller":"pages","method":"index","data":{"name":"test"}}';
+
 
 $request = Request::create();
 

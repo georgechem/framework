@@ -16,6 +16,8 @@ class User implements EntityInterface
 
     private array $role;
 
+    private string $sessionID;
+
     private static array $users = [];
 
     const TABLE_NAME = 'users';
@@ -24,15 +26,15 @@ class User implements EntityInterface
     {
         $conn = Database::connect();
 
-        $sql = "CREATE TABLE ".self::TABLE_NAME." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY , username varchar(255) NOT NULL, password varchar(255), role varchar(1024))";
+        $sql = "CREATE TABLE ".self::TABLE_NAME." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY , username varchar(255) NOT NULL, password varchar(255), role varchar(1024), sessionID varchar(255))";
 
         $stmt = $conn->prepare($sql);
 
         if(!$stmt->execute()){
             $sql = "DROP TABLE ".self::TABLE_NAME;
+            $sql = "CREATE TABLE ".self::TABLE_NAME." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY , username varchar(255) NOT NULL, password varchar(255), role varchar(1024), sessionID varchar(255))";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            $sql = "CREATE TABLE ".self::TABLE_NAME." (id int NOT NULL AUTO_INCREMENT PRIMARY KEY , username varchar(255) NOT NULL, password varchar(255), role varchar(1024))";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
         };
@@ -45,17 +47,17 @@ class User implements EntityInterface
     {
         $conn = Database::connect();
 
-        $sql = "INSERT INTO ".self::TABLE_NAME." (username, password, role) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO ".self::TABLE_NAME." (username, password, role, sessionID) VALUES (?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
 
-        if(!isset($this->username) || !isset($this->password) || !isset($this->role)){
+        if(!isset($this->username) || !isset($this->password) || !isset($this->role) || !isset($this->sessionID)){
             //TODO exception
             echo 'Object is not prepared for INSERT - Missing fields';
             exit;
         }
         $roles = json_encode($this->role);
-        $stmt->bind_param('sss', $this->username, $this->password, $roles);
+        $stmt->bind_param('ssss', $this->username, $this->password, $roles, $this->sessionID);
 
         $stmt->execute();
 
@@ -67,7 +69,7 @@ class User implements EntityInterface
     {
         $conn = Database::connect();
 
-        $sql = "SELECT id, username, password, role FROM ".self::TABLE_NAME." WHERE id=?";
+        $sql = "SELECT id, username, password, role, sessionID FROM ".self::TABLE_NAME." WHERE id=?";
 
         $stmt = $conn->prepare($sql);
 
@@ -85,6 +87,8 @@ class User implements EntityInterface
 
         $this->setRole(json_decode($user->role, true));
 
+        $this->setSessionID($user->sessionID);
+
         $conn->close();
 
     }
@@ -93,17 +97,17 @@ class User implements EntityInterface
     {
         $conn = Database::connect();
 
-        $sql = "UPDATE ".self::TABLE_NAME." SET username=?, password=?, role=? WHERE id=?";
+        $sql = "UPDATE ".self::TABLE_NAME." SET username=?, password=?, role=?, sessionID=? WHERE id=?";
 
         $stmt = $conn->prepare($sql);
 
-        if(!isset($this->username) || !isset($this->password) || !isset($this->role)){
+        if(!isset($this->username) || !isset($this->password) || !isset($this->role) || !isset($this->sessionID)){
             //TODO exception
             echo 'Object is not prepared for UPDATE - Missing fields';
             exit;
         }
         $roles = json_encode($this->role);
-        $stmt->bind_param('sssi', $this->username, $this->password, $roles, $id);
+        $stmt->bind_param('ssssi', $this->username, $this->password, $roles, $this->sessionID, $id);
 
         $stmt->execute();
 
@@ -131,7 +135,7 @@ class User implements EntityInterface
     {
         $conn = Database::connect();
 
-        $sql = "SELECT id, username, password, role FROM ".self::TABLE_NAME;
+        $sql = "SELECT id, username, password, role, sessionID FROM ".self::TABLE_NAME;
 
         $stmt = $conn->prepare($sql);
 
@@ -178,5 +182,15 @@ class User implements EntityInterface
     public function setRole(array $role): void
     {
         $this->role = $role;
+    }
+
+    public function getSessionID(): string
+    {
+        return $this->sessionID;
+    }
+
+    public function setSessionID(string $sessionID): void
+    {
+        $this->sessionID = $sessionID;
     }
 }
